@@ -106,3 +106,31 @@ class EDA:
 
         plt.tight_layout()
         plt.show()
+
+    def get_claim_by_vehicle(self, top_n=10):
+        """
+        Returns top and bottom vehicle make/model combinations by total claim amount.
+        Returns:
+            top_vehicles (DataFrame): Vehicles with highest total claims.
+            bottom_vehicles (DataFrame): Vehicles with lowest (non-zero) total claims.
+        """
+        # Group by make and model, summing total claims
+        vehicle_claims = self.df.groupby(['make', 'Model'])['TotalClaims'].sum().reset_index()
+
+        # Sort descending for top claims
+        top_vehicles = vehicle_claims.sort_values(by='TotalClaims', ascending=False).head(top_n)
+
+        # Sort ascending for bottom (excluding zero-claim vehicles)
+        bottom_vehicles = vehicle_claims[vehicle_claims['TotalClaims'] > 0] \
+            .sort_values(by='TotalClaims', ascending=True).head(top_n)
+
+        return top_vehicles, bottom_vehicles
+
+    def plot_vehicle_claims(self, vehicle_df, title):
+        plt.figure(figsize=(12, 6))
+        sns.barplot(data=vehicle_df, x='TotalClaims', y=vehicle_df['make'] + ' ' + vehicle_df['Model'])
+        plt.title(title)
+        plt.xlabel("Total Claims")
+        plt.ylabel("Vehicle Make & Model")
+        plt.tight_layout()
+        plt.show()
