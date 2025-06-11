@@ -1,5 +1,5 @@
-# AlphaCare Car Insurance Risk Analytics & Predictive Model
-This repository contains analyses and models to support AlphaCare Insurance Solutions' marketing strategy using historical car insurance claim data from South Africa (Feb 2014 - Aug 2015).
+# AlphaCare Car Insurance Risk Analytics 
+This repository showcases predictive models for optimizing car insurance marketing and risk management at AlphaCare Insurance Solutions (ACIS). Using historical claim data, it identifies trends, low-risk clients, and opportunities to reduce premiums, enhancing customer acquisition and retention through data-driven strategies.
 
 ## Objectives
 - Identify low-risk customers for premium optimization
