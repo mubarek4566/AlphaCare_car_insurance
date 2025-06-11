@@ -1,4 +1,4 @@
-# AlphaCare Car Insurance Risk Analytics & Predictive Modeling
+# AlphaCare Car Insurance Risk Analytics & Predictive Model
 This repository contains analyses and models to support AlphaCare Insurance Solutions' marketing strategy using historical car insurance claim data from South Africa (Feb 2014 - Aug 2015).
 
 ## Objectives
@@ -12,3 +12,4 @@ This repository contains analyses and models to support AlphaCare Insurance Solu
 - Pandas, Scikit-learn, Statsmodels, Seaborn, Matplotlib
 - Git, GitHub
 - GitHub Actions (CI/CD)
+
