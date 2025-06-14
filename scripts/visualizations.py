@@ -5,19 +5,30 @@ import pandas as pd
 class visualize:
     def __init__(self, path):
         self.df = path
+    
+    def plot_numeric_distributions(self, num_cols, bins=30, cols_per_row=3):
+        """
+        Plots histograms for a list of numerical columns in subplots.
+        """
+        num_plots = len(num_cols)
+        rows = (num_plots + cols_per_row - 1) // cols_per_row
 
-    def plot_numeric_distributions(self, num_cols, bins=30):
-        """
-        Plots histograms for a list of numerical columns.
-        """
-        for col in num_cols:
-            plt.figure(figsize=(8, 4))
-            sns.histplot(self.df[col].dropna(), bins=bins, kde=True)
-            plt.title(f'Distribution of {col}')
-            plt.xlabel(col)
-            plt.ylabel('Frequency')
-            plt.tight_layout()
-            plt.show()
+        fig, axes = plt.subplots(rows, cols_per_row, figsize=(6 * cols_per_row, 4 * rows))
+        axes = axes.flatten()  # Flatten in case of multiple rows
+
+        for i, col in enumerate(num_cols):
+            sns.histplot(self.df[col].dropna(), bins=bins, kde=True, ax=axes[i], color="skyblue")
+            axes[i].set_title(f'Distribution of {col}')
+            axes[i].set_xlabel(col)
+            axes[i].set_ylabel('Frequency')
+
+        # Hide any unused subplots
+        for j in range(i + 1, len(axes)):
+            axes[j].set_visible(False)
+
+        plt.tight_layout()
+        plt.show()
+
 
     def plot_categorical_distributions(self, cat_cols, top_n=10):
         """
@@ -79,8 +90,6 @@ class visualize:
         plt.show()
 
 
-    # =========================================================
-
     def average_premium_by_province(self):
         """
         Plots average TotalPremium per Province.
@@ -121,8 +130,6 @@ class visualize:
         plt.ylabel("Vehicle Make")
         plt.tight_layout()
         plt.show()
-
-    # =========================================================
 
     def trend_avg_premium_by_province(self, top_n=5):
         """
