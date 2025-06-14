@@ -8,5 +8,5 @@ current_dir = os.getcwd()
 
 def get_path():
     # Path to the folder containing txt dataset
-    file_path = os.path.join(current_dir, '../Data/MachineLearningRating_v3/MachineLearningRating_v3.txt')  
+    file_path = os.path.join(current_dir, '../../Data/MachineLearningRating_v3.txt')  
     return file_path
