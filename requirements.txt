@@ -1,2 +1,5 @@
 pandas
 numpy
+random
+matplotlib.pyplot
+seaborn
