@@ -13,3 +13,28 @@ This repository showcases predictive models for optimizing car insurance marketi
 - Git, GitHub
 - GitHub Actions (CI/CD)
 
+## 🗃️ Data Version Control (DVC)
+
+To ensure reproducibility and compliance in a regulated industry like insurance, DVC is used to version-control datasets and pipeline artifacts.
+
+### Steps to Reproduce:
+1. Install DVC:
+   ```bash
+   pip install dvc
+
+Initialize DVC:
+    dvc init
+
+Add Local Remote Storage:
+    mkdir -p ./dvc-storage
+    dvc remote add -d localstorage ./dvc-storage
+
+Track and Version Raw Dataset:
+    dvc add data/raw/insurance_data.csv
+    git add data/raw/insurance_data.csv.dvc .gitignore
+    git commit -m "Track raw dataset with DVC"
+
+Push Dataset to Local Remote:
+    dvc push   
+
+ 
