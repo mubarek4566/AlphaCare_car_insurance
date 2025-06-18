@@ -1,5 +1,5 @@
 import pandas as pd
-from scipy.stats import ttest_ind, f_oneway
+from scipy.stats import ttest_ind, f_oneway, chi2_contingency
 import numpy as np
 
 class hypothesis:
@@ -40,3 +40,46 @@ class hypothesis:
             results[f"{kpi} (p-value)"] = p_val
         
         return results, len(group_a), len(group_b)
+
+
+    def perform_t_test(self, feature, group_a_val, group_b_val, kpi):
+        group_a = self.df[self.df[feature] == group_a_val][kpi].dropna()
+        group_b = self.df[self.df[feature] == group_b_val][kpi].dropna()
+
+        stat, p_value = ttest_ind(group_a, group_b, equal_var=False)
+        result = {
+            "Test": "T-Test",
+            "Feature": feature,
+            "Group A": group_a_val,
+            "Group B": group_b_val,
+            "KPI": kpi,
+            "P-Value": p_value,
+            "Significant": "Yes" if p_value < 0.05 else "No"
+        }
+        return result
+
+    def perform_chi_squared(self, feature, kpi="HasClaim"):
+        contingency_table = pd.crosstab(self.df[feature], self.df[kpi])
+        chi2, p_value, _, _ = chi2_contingency(contingency_table)
+
+        result = {
+            "Test": "Chi-Squared",
+            "Feature": feature,
+            "KPI": kpi,
+            "P-Value": p_value,
+            "Significant": "Yes" if p_value < 0.05 else "No"
+        }
+        return result
+
+    def run_all_tests(self, feature, group_a_val=None, group_b_val=None):
+        results = []
+        
+        if group_a_val and group_b_val:
+            for kpi in ["HasClaim", "ClaimSeverity", "Margin"]:
+                result = self.perform_t_test(feature, group_a_val, group_b_val, kpi)
+                results.append(result)
+        else:
+            result = self.perform_chi_squared(feature, kpi="HasClaim")
+            results.append(result)
+
+        return pd.DataFrame(results)
