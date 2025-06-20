@@ -37,4 +37,36 @@ Track and Version Raw Dataset:
 Push Dataset to Local Remote:
     dvc push   
 
- 
+ # ✅ Model implementation:
+
+## Data Preparation:
+
+Handles missing data with median imputation for numerical features and 'Unknown' for categorical features
+
+Creates new features like vehicle age, coverage ratio, and power-to-capacity ratio
+
+Converts dates to datetime and extracts temporal features
+
+## Model Building:
+
+💡 Claim severity model (Random Forest Regressor) trained only on policies with claims
+
+💡 Claim probability model (Random Forest Classifier) trained on all policies
+
+💡 Uses pipelines with preprocessing for both numerical and categorical features
+
+## Evaluation:
+
+💡 For regression: RMSE and R-squared
+
+💡 For classification: AUC and accuracy
+
+## Risk-Based Pricing:
+
+💡 Implements the formula: Premium = (Predicted Probability * Predicted Severity) * (1 + Expense + Profit)
+
+## Modularity:
+
+💡 Models can be saved and loaded for later use
+
+💡 Clear separation of concerns with different functions for each task
